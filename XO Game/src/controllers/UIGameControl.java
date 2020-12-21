@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiOfGame;
+package controllers;
 
-import loginandregister.Model;
+import model.Model;
 
 /**
  *
  * @author AhmedG
  */
-public class UiOfGameControl {
+public class UIGameControl {
 
     public int getWin() {
         return Model.getWins();

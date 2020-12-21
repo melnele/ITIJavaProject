@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginandregister;
+package view;
 
+import controllers.RegisterControl;
+import view.LoginForm;
 import javax.swing.JOptionPane;
 
 /**

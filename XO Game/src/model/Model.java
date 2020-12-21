@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginandregister;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class Model {
 
-    private static Connection con = DBConnection.connectdb();
+    private static final Connection con = DBConnection.connectdb();
     private static PreparedStatement st = null;
     private static ResultSet res = null;
     private static Statement stat = null;
@@ -99,8 +99,6 @@ public class Model {
             res = st.executeQuery();
             if (res.next()) {
                 login = true;
-                //this.id = res.getInt(1);
-                //this.chUserName = userName;
                 id = res.getInt("id");
                 setChUserName(res.getString("username"));
                 setWins(res.getInt("wins"));

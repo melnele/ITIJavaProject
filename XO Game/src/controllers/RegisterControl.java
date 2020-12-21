@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginandregister;
+package controllers;
+
+import model.Model;
 
 /**
  *
  * @author AhmedG
  */
-public class LoginControl {
+public class RegisterControl {
 
     public String getUserName() {
 
@@ -20,9 +22,9 @@ public class LoginControl {
         return Model.getPassWord();
     }
 
-    public boolean chNamePassowrdIsEmpty(String userName, String password) {
+    public boolean chAllRegiIsEmpty(String userName, String password, String fName, String lName) {
         boolean ch = true;
-        if (userName.isEmpty() || password.isEmpty()) {
+        if (userName.isEmpty() || password.isEmpty() || fName.isEmpty() || lName.isEmpty()) {
             return ch;
         } else {
             ch = false;
@@ -30,8 +32,7 @@ public class LoginControl {
         return ch;
     }
 
-    public boolean userLoginC(String userName, String passWord) {
-        return Model.userLogin(userName, passWord);
+    public boolean userRegiC(String userName, String passWord, String fName, String lName) {
+        return Model.userRegister(fName, lName, userName, passWord);
     }
-
 }

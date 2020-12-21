@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UiOfGame;
+package view;
 
-import java.awt.CardLayout;
-import loginandregister.Model;
+import controllers.UIGameControl;
+import model.Model;
 //import javax.swing;
 
 /**
  *
  * @author maria
  */
-public class UIGameXO extends javax.swing.JFrame {
+public class UIGame extends javax.swing.JFrame {
 
     /**
      * Creates new form ProjectXO
      */
-    UiOfGameControl control;
+    UIGameControl control;
 
-    public UIGameXO() {
+    public UIGame() {
         initComponents();
-        control = new UiOfGameControl();
+        control = new UIGameControl();
     }
 
     /**
@@ -383,7 +383,6 @@ public class UIGameXO extends javax.swing.JFrame {
     }//GEN-LAST:event_bBackPersonActionPerformed
 
     private void jtUserNameUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtUserNameUiAncestorAdded
-
         jtUserNameUi.setText(Model.getChUserName());
     }//GEN-LAST:event_jtUserNameUiAncestorAdded
 

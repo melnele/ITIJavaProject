@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loginandregister;
+package view;
 
-import UiOfGame.UIGameXO;
-import UiOfGame.UiOfGameControl;
+import controllers.LoginControl;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,12 +18,9 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     LoginControl lc;
-    UiOfGameControl uiOfGameControl;
-    UIGameXO uIGameXO;
     public LoginForm() {
         initComponents();
         lc = new LoginControl();
-        uiOfGameControl =new UiOfGameControl();
     }
 
     /**
@@ -161,7 +157,6 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
-        // TODO add your handling code here:
         String userName = tfUsreName.getText();
         String passWord = String.valueOf(tfPassword.getPassword());
         if (lc.chNamePassowrdIsEmpty(userName, passWord)) {
@@ -172,19 +167,17 @@ public class LoginForm extends javax.swing.JFrame {
                 // display dashboard 
                 JOptionPane.showMessageDialog(this, "Login Success.");
                 dispose();
-                UIGameXO r = new UIGameXO();
+                UIGame r = new UIGame();
                 r.setTitle("Game XO");
                 r.setLocationRelativeTo(null);
                 r.setVisible(true);  
             } else {
                 JOptionPane.showMessageDialog(this, "UserName / Password Incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
-
             }
         }
     }//GEN-LAST:event_bLoginActionPerformed
 
     private void bRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegisterActionPerformed
-        // TODO add your handling code here:
         dispose();
         RegisterForm r = new RegisterForm();
         r.setTitle("Register a User");
