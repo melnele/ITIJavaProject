@@ -176,27 +176,12 @@ public class RegisterForm extends javax.swing.JFrame {
         String fName = tfFName.getText();
         String LName = tfLName.getText();
         String passWord = String.valueOf(tfPassowrd.getPassword());
-        if (rc.chAllRegiIsEmpty(userName, passWord, fName, LName)) {
-            JOptionPane.showMessageDialog(this, "Fill Up The Form.", "Error", JOptionPane.ERROR_MESSAGE);
-
-        } else {
-            System.out.println("Register try!");
-            if (rc.userRegiC(userName, passWord, fName, LName)) {
-                // display dashboard 
-                JOptionPane.showMessageDialog(this, "User Add.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                tfFName.setText("");
-                tfLName.setText("");
-                tfUserName.setText("");
-                tfPassowrd.setText("");
-                dispose();
-                LoginForm r = new LoginForm();
-                r.setTitle("Login a User");
-                r.setLocationRelativeTo(null);
-                r.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "UserName Is Dublicated.", "Error", JOptionPane.ERROR_MESSAGE);
-
-            }
+        if(rc.userRegisterC(userName, passWord, fName, LName)){
+        tfFName.setText("");
+        tfLName.setText("");
+        tfUserName.setText("");
+        tfPassowrd.setText("");
+        dispose();
         }
     }//GEN-LAST:event_bRegisterActionPerformed
 

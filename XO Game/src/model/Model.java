@@ -70,7 +70,17 @@ public class Model {
     }
 
     public static void setWins(int wins) {
-        Model.wins = wins;
+        String query = "INSERT INTO XOGAME.\"users\" (wins) VALUES(?)";
+        try {
+            st = con.prepareStatement(query);
+            st.setInt(1, wins);
+            if (st.executeUpdate() == 1) {
+                Model.wins = wins;
+            }
+        } catch (SQLException ex) {
+            System.out.println("there problem with input Wins in DataBase");
+        }
+
     }
 
     public static int getLoses() {
@@ -78,7 +88,17 @@ public class Model {
     }
 
     public static void setLoses(int loses) {
-        Model.loses = loses;
+        String query = "INSERT INTO XOGAME.\"users\" (loses) VALUES(?) ";
+        try {
+            st = con.prepareStatement(query);
+            st.setInt(1, loses);
+            if (st.executeUpdate() == 1) {
+                Model.loses = loses;
+            }
+        } catch (SQLException ex) {
+            System.out.println("there problem with input Loses in DataBase");
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     public static int getDraws() {
@@ -86,7 +106,17 @@ public class Model {
     }
 
     public static void setDraws(int Draws) {
-        Model.Draws = Draws;
+        String query = "INSERT INTO XOGAME.\"users\" (draws) VALUES(?)";
+        try {
+            st = con.prepareStatement(query);
+            st.setInt(1, Draws);
+            if (st.executeUpdate() == 1) {
+                Model.Draws = Draws;
+            }
+        } catch (SQLException ex) {
+            System.out.println("there problem with input Draws in DataBase");
+        }
+
     }
 
     public static boolean userLogin(String userName, String passWord) {
@@ -101,11 +131,7 @@ public class Model {
                 login = true;
                 id = res.getInt("id");
                 setChUserName(res.getString("username"));
-                setWins(res.getInt("wins"));
-                setDraws(res.getInt("draws"));
-                setLoses(res.getInt("loses"));
-
-                System.out.println(getId() + " " + getChUserName());
+                System.out.println(getId() + " " + getChUserName()+" "+getWins());
             }
 
         } catch (SQLException ex) {

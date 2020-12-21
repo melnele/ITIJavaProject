@@ -6,7 +6,10 @@
 package view;
 
 import controllers.LoginControl;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,6 +21,7 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     LoginControl lc;
+
     public LoginForm() {
         initComponents();
         lc = new LoginControl();
@@ -159,30 +163,30 @@ public class LoginForm extends javax.swing.JFrame {
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
         String userName = tfUsreName.getText();
         String passWord = String.valueOf(tfPassword.getPassword());
-        if (lc.chNamePassowrdIsEmpty(userName, passWord)) {
-            JOptionPane.showMessageDialog(this, "UserName / Password Shouldn't be Empty.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            System.out.println("Login try!");
-            if (lc.userLoginC(userName, passWord)) {
-                // display dashboard 
-                JOptionPane.showMessageDialog(this, "Login Success.");
-                dispose();
-                UIGame r = new UIGame();
-                r.setTitle("Game XO");
-                r.setLocationRelativeTo(null);
-                r.setVisible(true);  
-            } else {
-                JOptionPane.showMessageDialog(this, "UserName / Password Incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+       if(lc.userLoginC(userName, passWord)) { 
+        dispose();
+       }
     }//GEN-LAST:event_bLoginActionPerformed
 
+    public JPasswordField getTfPassword() {
+        return tfPassword;
+    }
+
+    public void setTfPassword(JPasswordField tfPassword) {
+        this.tfPassword = tfPassword;
+    }
+
+    public JTextField getTfUsreName() {
+        return tfUsreName;
+    }
+
+    public void setTfUsreName(JTextField tfUsreName) {
+        this.tfUsreName = tfUsreName;
+    }
+
     private void bRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegisterActionPerformed
+        lc.userRegisterC();
         dispose();
-        RegisterForm r = new RegisterForm();
-        r.setTitle("Register a User");
-        r.setLocationRelativeTo(null);
-        r.setVisible(true);
     }//GEN-LAST:event_bRegisterActionPerformed
 
     /**

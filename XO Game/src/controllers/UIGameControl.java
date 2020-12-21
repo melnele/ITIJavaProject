@@ -5,7 +5,9 @@
  */
 package controllers;
 
+import javax.swing.JPanel;
 import model.Model;
+import view.UIGame;
 
 /**
  *
@@ -13,20 +15,21 @@ import model.Model;
  */
 public class UIGameControl {
 
-    public int getWin() {
+    public int getWins() {
         return Model.getWins();
     }
 
-    public int getLose() {
+    public int getLoses() {
         return Model.getLoses();
     }
 
-    public int getDraw() {
+    public int getDraws() {
         return Model.getDraws();
     }
 
-//    public int getUserName() {
-//        System.out.println("UI Model"+new Model().getChUserName());
-//        return  new Model().getId();
-//    }
+    public String getUserName() {
+        return  Model.getChUserName();
+    }
+    
+    
 }
