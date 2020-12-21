@@ -168,22 +168,6 @@ public class LoginForm extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_bLoginActionPerformed
 
-    public JPasswordField getTfPassword() {
-        return tfPassword;
-    }
-
-    public void setTfPassword(JPasswordField tfPassword) {
-        this.tfPassword = tfPassword;
-    }
-
-    public JTextField getTfUsreName() {
-        return tfUsreName;
-    }
-
-    public void setTfUsreName(JTextField tfUsreName) {
-        this.tfUsreName = tfUsreName;
-    }
-
     private void bRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRegisterActionPerformed
         lc.userRegisterC();
         dispose();

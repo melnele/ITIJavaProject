@@ -16,22 +16,9 @@ import view.RegisterForm;
  */
 public class RegisterControl {
 
-    public String getUserName() {
-
-        return Model.getUserName();
-    }
-
-    public String getPassword() {
-        return Model.getPassWord();
-    }
-
     public boolean chAllRegiIsEmpty(String userName, String password, String fName, String lName) {
         boolean ch = false;
-        if (userName.isEmpty() || password.isEmpty() || fName.isEmpty() || lName.isEmpty()) {
-            ch = false;
-        } else {
-            ch = true;
-        }
+        ch = !(userName.isEmpty() || password.isEmpty() || fName.isEmpty() || lName.isEmpty());
         return ch;
     }
 

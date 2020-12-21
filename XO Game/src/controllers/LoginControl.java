@@ -28,11 +28,7 @@ public class LoginControl {
 
     public boolean chNamePassowrdIsEmpty(String userName, String password) {
         boolean ch = false;
-        if (userName.isEmpty() || password.isEmpty()) {
-            ch = false;
-        } else {
-            ch = true;
-        }
+        ch = !(userName.isEmpty() || password.isEmpty());
         return ch;
     }
 
