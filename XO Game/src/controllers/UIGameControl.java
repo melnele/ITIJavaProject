@@ -5,9 +5,7 @@
  */
 package controllers;
 
-import javax.swing.JPanel;
 import model.Model;
-import view.UIGame;
 
 /**
  *
@@ -28,8 +26,7 @@ public class UIGameControl {
     }
 
     public String getUserName() {
-        return  Model.getChUserName();
+        return Model.getUserName();
     }
-    
-    
+
 }
