@@ -26,9 +26,6 @@ public class Model {
 
     private static int id;
     private static String userName;
-    private static String passWord;
-    private static String fName;
-    private static String lName;
     private static int wins;
     private static int loses;
     private static int Draws;
@@ -49,7 +46,6 @@ public class Model {
     }
 
     public static void setWins(int wins) {
-
         String query = "UPDATE  XOGAME.\"users\" SET wins=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
@@ -60,7 +56,6 @@ public class Model {
         } catch (SQLException ex) {
             System.out.println("there problem with input Wins in DataBase");
         }
-
     }
 
     public static int getLoses() {
@@ -78,7 +73,7 @@ public class Model {
 
         } catch (SQLException ex) {
             System.out.println("there problem with input Loses in DataBase");
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,7 +92,6 @@ public class Model {
         } catch (SQLException ex) {
             System.out.println("there problem with input Draws in DataBase");
         }
-
     }
 
     public static boolean userLogin(String userName, String passWord) {
@@ -111,13 +105,13 @@ public class Model {
             if (res.next()) {
                 login = true;
                 id = res.getInt("id");
-               Model.userName=res.getString("username");
+                Model.userName = res.getString("username");
                 System.out.println(getId() + " " + getUserName() + " " + getWins());
             }
 
         } catch (SQLException ex) {
             System.out.println("Model login failed EX User Login Model");
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return login;
     }

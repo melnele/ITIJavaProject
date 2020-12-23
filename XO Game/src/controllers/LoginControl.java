@@ -16,18 +16,14 @@ import model.Model;
 public class LoginControl {
 
     public String getUserName() {
-
         return Model.getUserName();
     }
 
     public boolean chNamePassowrdIsEmpty(String userName, String password) {
-        boolean ch = false;
-        ch = !(userName.isEmpty() || password.isEmpty());
-        return ch;
+        return !(userName.isEmpty() || password.isEmpty());
     }
 
     public boolean userLoginC(String userName, String passWord, Component c) {
-
         if (chNamePassowrdIsEmpty(userName, passWord)) {
             if (Model.userLogin(userName, passWord)) {
                 JOptionPane.showMessageDialog(c, "Login Success.");
