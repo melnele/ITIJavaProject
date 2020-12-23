@@ -29,7 +29,6 @@ public class Model {
     private static String passWord;
     private static String fName;
     private static String lName;
-    private static String chUserName;
     private static int wins;
     private static int loses;
     private static int Draws;
@@ -45,38 +44,19 @@ public class Model {
         return userName;
     }
 
-    public static String getPassWord() {
-        return passWord;
-    }
-
-    public static String getfName() {
-        return fName;
-    }
-
-    public static String getlName() {
-        return lName;
-    }
-
-    public static String getChUserName() {
-        return chUserName;
-    }
-
-    public static void setChUserName(String chUserName) {
-        Model.chUserName = chUserName;
-    }
-
     public static int getWins() {
         return wins;
     }
 
     public static void setWins(int wins) {
-        String query = "INSERT INTO XOGAME.\"users\" (wins) VALUES(?)";
+
+        String query = "UPDATE  XOGAME.\"users\" SET wins=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
             st.setInt(1, wins);
-            if (st.executeUpdate() == 1) {
-                Model.wins = wins;
-            }
+            st.setInt(2, getId());
+            st.executeUpdate();
+            Model.wins = wins;
         } catch (SQLException ex) {
             System.out.println("there problem with input Wins in DataBase");
         }
@@ -88,17 +68,18 @@ public class Model {
     }
 
     public static void setLoses(int loses) {
-        String query = "INSERT INTO XOGAME.\"users\" (loses) VALUES(?) ";
+        String query = "UPDATE  XOGAME.\"users\" SET loses=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
             st.setInt(1, loses);
-            if (st.executeUpdate() == 1) {
-                Model.loses = loses;
-            }
+            st.setInt(2, getId());
+            st.executeUpdate();
+            Model.loses = loses;
+
         } catch (SQLException ex) {
             System.out.println("there problem with input Loses in DataBase");
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     public static int getDraws() {
@@ -106,13 +87,13 @@ public class Model {
     }
 
     public static void setDraws(int Draws) {
-        String query = "INSERT INTO XOGAME.\"users\" (draws) VALUES(?)";
+        String query = "UPDATE  XOGAME.\"users\" SET draws=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
             st.setInt(1, Draws);
-            if (st.executeUpdate() == 1) {
-                Model.Draws = Draws;
-            }
+            st.setInt(2, getId());
+            st.executeUpdate();
+            Model.Draws = Draws;
         } catch (SQLException ex) {
             System.out.println("there problem with input Draws in DataBase");
         }
@@ -130,8 +111,8 @@ public class Model {
             if (res.next()) {
                 login = true;
                 id = res.getInt("id");
-                setChUserName(res.getString("username"));
-                System.out.println(getId() + " " + getChUserName()+" "+getWins());
+               Model.userName=res.getString("username");
+                System.out.println(getId() + " " + getUserName() + " " + getWins());
             }
 
         } catch (SQLException ex) {

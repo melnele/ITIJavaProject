@@ -23,6 +23,7 @@ public class RegisterForm extends javax.swing.JFrame {
     public RegisterForm() {
         initComponents();
         rc = new RegisterControl();
+        
     }
 
     /**
@@ -176,12 +177,16 @@ public class RegisterForm extends javax.swing.JFrame {
         String fName = tfFName.getText();
         String LName = tfLName.getText();
         String passWord = String.valueOf(tfPassowrd.getPassword());
-        if(rc.userRegisterC(userName, passWord, fName, LName)){
-        tfFName.setText("");
-        tfLName.setText("");
-        tfUserName.setText("");
-        tfPassowrd.setText("");
-        dispose();
+        if (rc.userRegisterC(userName, passWord, fName, LName, this)) {
+            tfFName.setText("");
+            tfLName.setText("");
+            tfUserName.setText("");
+            tfPassowrd.setText("");
+            dispose();
+            LoginForm loginForm = new LoginForm();
+            loginForm.setTitle("Game XO");
+            loginForm.setLocationRelativeTo(null);
+            loginForm.setVisible(true);
         }
     }//GEN-LAST:event_bRegisterActionPerformed
 
