@@ -16,9 +16,7 @@ import model.Model;
 public class RegisterControl {
 
     public boolean chAllRegiIsEmpty(String userName, String password, String fName, String lName) {
-        boolean ch = false;
-        ch = !(userName.isEmpty() || password.isEmpty() || fName.isEmpty() || lName.isEmpty());
-        return ch;
+        return !(userName.isEmpty() || password.isEmpty() || fName.isEmpty() || lName.isEmpty());
     }
 
     public boolean userRegisterC(String userName, String passWord, String fName, String lName, Component c) {

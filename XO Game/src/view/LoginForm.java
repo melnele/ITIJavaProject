@@ -6,10 +6,6 @@
 package view;
 
 import controllers.LoginControl;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -170,6 +166,7 @@ public class LoginForm extends javax.swing.JFrame {
             dispose();
             UIGame uIGame = new UIGame();
             uIGame.setTitle("Game XO");
+            uIGame.setSize(450, 400);
             uIGame.setLocationRelativeTo(null);
             uIGame.setVisible(true);
         }

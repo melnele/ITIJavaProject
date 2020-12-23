@@ -6,9 +6,7 @@
 package view;
 
 import controllers.UIGameControl;
-import javax.swing.JPanel;
-import model.Model;
-//import javax.swing;
+import controllers.XOController;
 
 /**
  *
@@ -20,6 +18,7 @@ public class UIGame extends javax.swing.JFrame {
      * Creates new form ProjectXO
      */
     UIGameControl control;
+    XOController xocontroller;
 
     public UIGame() {
         initComponents();
@@ -50,17 +49,17 @@ public class UIGame extends javax.swing.JFrame {
         jLLoseUi = new javax.swing.JLabel();
         jLDrawUi = new javax.swing.JLabel();
         jtUserNameUi = new javax.swing.JLabel();
-        jpPlayWithPerson = new javax.swing.JPanel();
+        jpGame = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        bBackPerson = new javax.swing.JButton();
-        jpNetwork = new javax.swing.JPanel();
+        bBack = new javax.swing.JButton();
+        jpBoard = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        bBackNewtwork = new javax.swing.JButton();
-        jpPlaywithPc = new javax.swing.JPanel();
-        lPlayPC = new javax.swing.JLabel();
-        bBackPC = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        xScore = new javax.swing.JLabel();
+        oScore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 500));
 
         jpParent.setBackground(new java.awt.Color(153, 153, 153));
         jpParent.setToolTipText("");
@@ -226,16 +225,13 @@ public class UIGame extends javax.swing.JFrame {
             jpMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpMainScreenLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMainScreenLayout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(bExit, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpMainScreenLayout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addGroup(jpMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bPlayNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bPlayWithFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bPlayWithPc, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jpMainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(bPlayNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bPlayWithFriend, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bPlayWithPc, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bExit, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpMainScreenLayout.setVerticalGroup(
@@ -250,121 +246,89 @@ public class UIGame extends javax.swing.JFrame {
                 .addComponent(bPlayNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bExit, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpParent.add(jpMainScreen, "card2");
 
-        jpPlayWithPerson.setBackground(new java.awt.Color(0, 0, 51));
+        jpGame.setBackground(new java.awt.Color(0, 0, 51));
+        jpGame.setPreferredSize(new java.awt.Dimension(400, 550));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Play With Person");
 
-        bBackPerson.setText("Back");
-        bBackPerson.addActionListener(new java.awt.event.ActionListener() {
+        bBack.setText("Back");
+        bBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBackPersonActionPerformed(evt);
+                bBackActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jpPlayWithPersonLayout = new javax.swing.GroupLayout(jpPlayWithPerson);
-        jpPlayWithPerson.setLayout(jpPlayWithPersonLayout);
-        jpPlayWithPersonLayout.setHorizontalGroup(
-            jpPlayWithPersonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPlayWithPersonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bBackPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
-        );
-        jpPlayWithPersonLayout.setVerticalGroup(
-            jpPlayWithPersonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPlayWithPersonLayout.createSequentialGroup()
-                .addGroup(jpPlayWithPersonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpPlayWithPersonLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpPlayWithPersonLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(bBackPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(280, Short.MAX_VALUE))
-        );
-
-        jpParent.add(jpPlayWithPerson, "card5");
-
-        jpNetwork.setBackground(new java.awt.Color(0, 0, 51));
+        jpBoard.setBackground(new java.awt.Color(255, 102, 0));
+        jpBoard.setPreferredSize(new java.awt.Dimension(400, 400));
+        jpBoard.setLayout(new java.awt.GridLayout(3, 3));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Play Network");
+        jLabel2.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel2.setText("X : ");
 
-        bBackNewtwork.setText("Back");
-        bBackNewtwork.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBackNewtworkActionPerformed(evt);
-            }
-        });
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel5.setText(" : O");
 
-        javax.swing.GroupLayout jpNetworkLayout = new javax.swing.GroupLayout(jpNetwork);
-        jpNetwork.setLayout(jpNetworkLayout);
-        jpNetworkLayout.setHorizontalGroup(
-            jpNetworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNetworkLayout.createSequentialGroup()
+        xScore.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        xScore.setForeground(new java.awt.Color(255, 102, 0));
+        xScore.setText("0");
+
+        oScore.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        oScore.setForeground(new java.awt.Color(255, 102, 0));
+        oScore.setText("0");
+
+        javax.swing.GroupLayout jpGameLayout = new javax.swing.GroupLayout(jpGame);
+        jpGame.setLayout(jpGameLayout);
+        jpGameLayout.setHorizontalGroup(
+            jpGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpBoard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpGameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bBackNewtwork, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addGroup(jpGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpGameLayout.createSequentialGroup()
+                        .addComponent(bBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jpGameLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(xScore)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(oScore)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)))
+                .addContainerGap())
         );
-        jpNetworkLayout.setVerticalGroup(
-            jpNetworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNetworkLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jpNetworkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bBackNewtwork, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(288, Short.MAX_VALUE))
-        );
-
-        jpParent.add(jpNetwork, "card4");
-
-        jpPlaywithPc.setBackground(new java.awt.Color(0, 0, 51));
-
-        lPlayPC.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lPlayPC.setForeground(new java.awt.Color(255, 255, 255));
-        lPlayPC.setText("Play With PC");
-
-        bBackPC.setText("Back");
-        bBackPC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBackPCActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jpPlaywithPcLayout = new javax.swing.GroupLayout(jpPlaywithPc);
-        jpPlaywithPc.setLayout(jpPlaywithPcLayout);
-        jpPlaywithPcLayout.setHorizontalGroup(
-            jpPlaywithPcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlaywithPcLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(bBackPC, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(lPlayPC, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
-        );
-        jpPlaywithPcLayout.setVerticalGroup(
-            jpPlaywithPcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPlaywithPcLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jpPlaywithPcLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lPlayPC, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBackPC, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(292, Short.MAX_VALUE))
+        jpGameLayout.setVerticalGroup(
+            jpGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpGameLayout.createSequentialGroup()
+                .addGroup(jpGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpGameLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpGameLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(bBack, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addGroup(jpGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(xScore)
+                    .addComponent(oScore))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jpParent.add(jpPlaywithPc, "Card2");
+        jpParent.add(jpGame, "card5");
 
         getContentPane().add(jpParent, java.awt.BorderLayout.CENTER);
 
@@ -373,7 +337,7 @@ public class UIGame extends javax.swing.JFrame {
 
     private void bPlayNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayNetworkActionPerformed
         jpParent.removeAll();
-        jpParent.add(jpNetwork);
+        jpParent.add(jpGame);
         jpParent.repaint();
         jpParent.revalidate();
 
@@ -386,7 +350,7 @@ public class UIGame extends javax.swing.JFrame {
 
     private void bPlayWithPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithPcActionPerformed
         jpParent.removeAll();
-        jpParent.add(jpPlaywithPc);
+        jpParent.add(jpGame);
         jpParent.repaint();
         jpParent.revalidate();
 
@@ -394,30 +358,19 @@ public class UIGame extends javax.swing.JFrame {
 
     private void bPlayWithFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithFriendActionPerformed
         jpParent.removeAll();
-        jpParent.add(jpPlayWithPerson);
+        jpParent.add(jpGame);
+        setSize(400, 600);
+        xocontroller = new XOController(jpBoard, xScore, oScore);
         jpParent.repaint();
         jpParent.revalidate();
     }//GEN-LAST:event_bPlayWithFriendActionPerformed
 
-    private void bBackPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackPersonActionPerformed
+    private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
         jpParent.removeAll();
         jpParent.add(jpMainScreen);
         jpParent.repaint();
         jpParent.revalidate();
-    }//GEN-LAST:event_bBackPersonActionPerformed
-
-    private void bBackNewtworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackNewtworkActionPerformed
-        jpParent.removeAll();
-        jpParent.add(jpMainScreen);
-        jpParent.repaint();
-        jpParent.revalidate();    }//GEN-LAST:event_bBackNewtworkActionPerformed
-
-    private void bBackPCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackPCActionPerformed
-        jpParent.removeAll();
-        jpParent.add(jpMainScreen);
-        jpParent.repaint();
-        jpParent.revalidate();
-    }//GEN-LAST:event_bBackPCActionPerformed
+    }//GEN-LAST:event_bBackActionPerformed
 
     private void jtUserNameUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtUserNameUiAncestorAdded
         jtUserNameUi.setText(control.getUserName());
@@ -437,9 +390,7 @@ public class UIGame extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bBackNewtwork;
-    private javax.swing.JButton bBackPC;
-    private javax.swing.JButton bBackPerson;
+    private javax.swing.JButton bBack;
     private javax.swing.JButton bExit;
     private javax.swing.JButton bPlayNetwork;
     private javax.swing.JButton bPlayWithFriend;
@@ -451,16 +402,16 @@ public class UIGame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jpBoard;
+    private javax.swing.JPanel jpGame;
     private javax.swing.JPanel jpMainScreen;
-    private javax.swing.JPanel jpNetwork;
     private javax.swing.JPanel jpParent;
-    private javax.swing.JPanel jpPlayWithPerson;
-    private javax.swing.JPanel jpPlaywithPc;
     private javax.swing.JLabel jtUserNameUi;
-    private javax.swing.JLabel lPlayPC;
     private javax.swing.JLabel lbScore;
     private javax.swing.JLabel lbUserName;
+    private javax.swing.JLabel oScore;
+    private javax.swing.JLabel xScore;
     // End of variables declaration//GEN-END:variables
-
 }

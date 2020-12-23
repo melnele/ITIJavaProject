@@ -6,8 +6,6 @@
 package view;
 
 import controllers.RegisterControl;
-import view.LoginForm;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +21,7 @@ public class RegisterForm extends javax.swing.JFrame {
     public RegisterForm() {
         initComponents();
         rc = new RegisterControl();
-        
+
     }
 
     /**
