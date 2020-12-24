@@ -6,7 +6,8 @@
 package view;
 
 import controllers.UIGameControl;
-import controllers.XOController;
+import controllers.XOWithPC;
+import controllers.XOWithPerson;
 
 /**
  *
@@ -18,7 +19,8 @@ public class UIGame extends javax.swing.JFrame {
      * Creates new form ProjectXO
      */
     UIGameControl control;
-    XOController xocontroller;
+    XOWithPerson xoWithPerson;
+    XOWithPC xoWithPC;
 
     public UIGame() {
         initComponents();
@@ -354,6 +356,8 @@ public class UIGame extends javax.swing.JFrame {
     private void bPlayWithPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithPcActionPerformed
         jpParent.removeAll();
         jpParent.add(jpGame);
+        setSize(500, 600);
+        xoWithPC = new XOWithPC(jpBoard, xScore, oScore);
         jpParent.repaint();
         jpParent.revalidate();
 
@@ -363,7 +367,7 @@ public class UIGame extends javax.swing.JFrame {
         jpParent.removeAll();
         jpParent.add(jpGame);
         setSize(500, 600);
-        xocontroller = new XOController(jpBoard, xScore, oScore);
+        xoWithPerson = new XOWithPerson(jpBoard, xScore, oScore);
         jpParent.repaint();
         jpParent.revalidate();
     }//GEN-LAST:event_bPlayWithFriendActionPerformed

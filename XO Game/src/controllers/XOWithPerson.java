@@ -9,12 +9,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,19 +19,15 @@ import javax.swing.JPanel;
  *
  * @author moham
  */
-public class XOController {
+public class XOWithPerson {
 
-    private JButton[][] board;
-    private char curPlayer;
-    JPanel jpBoard;
-    JLabel xScore;
-    JLabel oScore;
+    protected JButton[][] board;
+    protected char curPlayer;
+    protected JPanel jpBoard;
+    protected JLabel xScore;
+    protected JLabel oScore;
 
-    public char getCurPlayer() {
-        return curPlayer;
-    }
-
-    public XOController(JPanel p, JLabel xJLabel, JLabel oJLabel) {
+    public XOWithPerson(JPanel p, JLabel xJLabel, JLabel oJLabel) {
         xScore = xJLabel;
         oScore = oJLabel;
         jpBoard = p;
@@ -46,7 +36,7 @@ public class XOController {
         initializeBoard();
     }
 
-    private void initializeBoard() {
+    protected void initializeBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = new JButton("");
@@ -58,12 +48,7 @@ public class XOController {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String[] s = ((JButton) e.getSource()).getName().split(" ");
-                        ((JButton) e.getSource()).setEnabled(false);
-                        try {
-                            newTurn(new Integer(s[0]), new Integer(s[1]));
-                        } catch (IOException ex) {
-                            Logger.getLogger(XOController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        newTurn(new Integer(s[0]), new Integer(s[1]));
                     }
                 });
                 jpBoard.add(board[i][j]);
@@ -71,7 +56,7 @@ public class XOController {
         }
     }
 
-    public void newTurn(int x, int y) throws IOException {
+    protected void newTurn(int x, int y) {
         fillCell(x, y);
         if (checkForWin()) {
             message(curPlayer);
@@ -84,7 +69,7 @@ public class XOController {
         }
     }
 
-    public void resetGame() {
+    protected void resetGame() {
         jpBoard.removeAll();
         board = new JButton[3][3];
         curPlayer = 'x';
@@ -93,7 +78,7 @@ public class XOController {
         jpBoard.repaint();
     }
 
-    public void message(char winner) throws IOException {
+    protected void message(char winner) {
         //Player 1 and 2 switched
         JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
         switch (winner) {
@@ -111,7 +96,7 @@ public class XOController {
         }
     }
 
-    private void setScore(char c) {
+    protected void setScore(char c) {
         if (c == 'x') {
             String str_score = xScore.getText();
             int score = Integer.parseInt(str_score) + 1;
@@ -125,7 +110,7 @@ public class XOController {
         }
     }
 
-    public boolean isBoardFull() {
+    protected boolean isBoardFull() {
         boolean isFull = true;
 
         for (int i = 0; i < 3; i++) {
@@ -139,11 +124,11 @@ public class XOController {
         return isFull;
     }
 
-    public boolean checkForWin() {
+    protected boolean checkForWin() {
         return (checkRowsForWin() || checkColumnsForWin() || checkDiagonalsForWin());
     }
 
-    private boolean checkRowsForWin() {
+    protected boolean checkRowsForWin() {
         for (int i = 0; i < 3; i++) {
             if (checkHelper(board[i][0], board[i][1], board[i][2]) == true) {
                 return true;
@@ -152,7 +137,7 @@ public class XOController {
         return false;
     }
 
-    private boolean checkColumnsForWin() {
+    protected boolean checkColumnsForWin() {
         for (int i = 0; i < 3; i++) {
             if (checkHelper(board[0][i], board[1][i], board[2][i]) == true) {
                 return true;
@@ -161,23 +146,24 @@ public class XOController {
         return false;
     }
 
-    private boolean checkDiagonalsForWin() {
+    protected boolean checkDiagonalsForWin() {
         return ((checkHelper(board[0][0], board[1][1], board[2][2]) == true) || (checkHelper(board[0][2], board[1][1], board[2][0]) == true));
     }
 
-    private boolean checkHelper(JButton c1, JButton c2, JButton c3) {
+    protected boolean checkHelper(JButton c1, JButton c2, JButton c3) {
         return ((!c1.getText().isEmpty()) && c1.getText().equalsIgnoreCase(c2.getText()) && c2.getText().equalsIgnoreCase(c3.getText()));
     }
 
-    private void changePlayer() {
+    protected void changePlayer() {
         curPlayer = ((curPlayer == 'x') ? 'o' : 'x');
     }
 
-    public boolean fillCell(int row, int col) {
+    protected boolean fillCell(int row, int col) {
         if ((row >= 0) && (row < 3)) {
             if ((col >= 0) && (col < 3)) {
                 if (board[row][col].getText().isEmpty()) {
                     board[row][col].setText("" + curPlayer);
+                    board[row][col].setEnabled(false);
                     changePlayer();
                     return true;
                 }
