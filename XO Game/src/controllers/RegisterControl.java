@@ -22,7 +22,7 @@ public class RegisterControl {
     public boolean userRegisterC(String userName, String passWord, String fName, String lName, Component c) {
         if (chAllRegiIsEmpty(userName, passWord, fName, lName)) {
             if (Model.userRegister(fName, lName, userName, passWord)) {
-                JOptionPane.showMessageDialog(c, "User Add.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println( "User Add Success.");
                 return true;
             } else {
                 JOptionPane.showMessageDialog(c, "UserName Is Dublicated.", "Error", JOptionPane.ERROR_MESSAGE);

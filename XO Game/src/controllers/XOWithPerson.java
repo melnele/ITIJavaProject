@@ -26,6 +26,7 @@ public class XOWithPerson {
     protected JPanel jpBoard;
     protected JLabel xScore;
     protected JLabel oScore;
+    
 
     public XOWithPerson(JPanel p, JLabel xJLabel, JLabel oJLabel) {
         xScore = xJLabel;
@@ -41,8 +42,8 @@ public class XOWithPerson {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = new JButton("");
                 board[i][j].setFont(new Font("Arial", Font.PLAIN, 80));
-                board[i][j].setForeground(new Color(255, 102, 0));
-                board[i][j].setBackground(new Color(0, 0, 51));
+                board[i][j].setForeground(new Color(249,156,147));
+                board[i][j].setBackground(new Color(89,125,122));
                 board[i][j].setName(i + " " + j);
                 board[i][j].addActionListener(new ActionListener() {
                     @Override
@@ -80,7 +81,7 @@ public class XOWithPerson {
 
     protected void message(char winner) {
         //Player 1 and 2 switched
-        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
+        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/v.mp4")));
         switch (winner) {
             case 'x':
                 JOptionPane.showMessageDialog(jpBoard, picLabel, "O Win", JOptionPane.PLAIN_MESSAGE);
