@@ -5,11 +5,7 @@
  */
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +15,7 @@ import java.util.logging.Logger;
  */
 public class Model {
 
-    private static final Connection con = DBConnection.connectdb();
-    private static PreparedStatement st = null;
-    private static ResultSet res = null;
-    private static Statement stat = null;
+    private static final ServerConnection connection = new ServerConnection();
 
     private static int id;
     private static String userName;
@@ -45,7 +38,7 @@ public class Model {
         return wins;
     }
 
-    public static void setWins(int wins) {
+    /*public static void setWins(int wins) {
         String query = "UPDATE  XOGAME.\"users\" SET wins=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
@@ -56,13 +49,13 @@ public class Model {
         } catch (SQLException ex) {
             System.out.println("there problem with input Wins in DataBase");
         }
-    }
-
+    }*/
+    
     public static int getLoses() {
         return loses;
     }
 
-    public static void setLoses(int loses) {
+    /*public static void setLoses(int loses) {
         String query = "UPDATE  XOGAME.\"users\" SET loses=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
@@ -75,13 +68,13 @@ public class Model {
             System.out.println("there problem with input Loses in DataBase");
             //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
+    }*/
+    
     public static int getDraws() {
         return Draws;
     }
 
-    public static void setDraws(int Draws) {
+    /*public static void setDraws(int Draws) {
         String query = "UPDATE  XOGAME.\"users\" SET draws=? WHERE id=?";
         try {
             st = con.prepareStatement(query);
@@ -92,47 +85,53 @@ public class Model {
         } catch (SQLException ex) {
             System.out.println("there problem with input Draws in DataBase");
         }
-    }
-
-    public static boolean userLogin(String userName, String passWord) {
-        boolean login = false;
-        String query = "select * from XOGAME.\"users\" WHERE username = ? AND password = ?";
+    }*/
+    
+    public static String[] userLogin(String userName, String passWord) {
         try {
-            st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, userName);
-            st.setString(2, passWord);
-            res = st.executeQuery();
-            if (res.next()) {
-                login = true;
-                id = res.getInt("id");
-                Model.userName = res.getString("username");
+            connection.ps.println("login#" + userName + "#" + passWord);
+            String[] res = connection.br.readLine().trim().split("#");
+            System.out.println(res[1]);
+            if (Boolean.valueOf(res[0])) {
+                id = new Integer(res[1]);
+                Model.userName = userName;
                 System.out.println(getId() + " " + getUserName() + " " + getWins());
             }
-
-        } catch (SQLException ex) {
-            System.out.println("Model login failed EX User Login Model");
-            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            return res;
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
+            return new String[]{"" + false, "Server Error"};
         }
-        return login;
+        return new String[]{"" + false, "Server Error"};
+    }
+
+    public static String[] getUsers() {
+        try {
+            connection.ps.println("clients#");
+            String str = connection.br.readLine().trim();
+            System.out.println(str);
+           String[] res = str.split("#");
+            for (String str1 : res) {
+                System.out.println(str1);
+            }
+            return res;
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public static boolean userRegister(String fName, String lName, String userName, String passWord) {
-        boolean register = false;
-        String query = "INSERT INTO XOGAME.\"users\" (fname,lname,username,password) VALUES(?,?,?,?)";
         try {
-            st = con.prepareStatement(query);
-            st.setString(1, fName);
-            st.setString(2, lName);
-            st.setString(3, userName);
-            st.setString(4, passWord);
-            if (st.executeUpdate() == 1) {
-                register = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("duplicate User Name");
-            register = false;
+            connection.ps.println("register#" + fName + "#" + lName + "#" + userName + "#" + passWord);
+            return Boolean.parseBoolean(connection.br.readLine().trim());
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
         }
-        return register;
+        return false;
     }
-
 }

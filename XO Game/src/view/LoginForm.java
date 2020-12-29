@@ -188,7 +188,6 @@ public class LoginForm extends javax.swing.JFrame {
             uIGame.setSize(700,900);
             uIGame.setLocationRelativeTo(null);
             uIGame.setVisible(true);
-            
         }
     }//GEN-LAST:event_bLoginActionPerformed
 

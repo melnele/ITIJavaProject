@@ -8,6 +8,7 @@ package view;
 import controllers.UIGameControl;
 import controllers.XOWithPC;
 import controllers.XOWithPerson;
+import model.Model;
 
 /**
  *
@@ -24,6 +25,7 @@ public class UIGame extends javax.swing.JFrame {
 
     public UIGame() {
         initComponents();
+        jluserList.setListData(Model.getUsers());
         control = new UIGameControl();
     }
 
@@ -51,7 +53,7 @@ public class UIGame extends javax.swing.JFrame {
         jLDrawUi = new javax.swing.JLabel();
         jtUserNameUi = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jluserList = new javax.swing.JList<>();
         bPlayWithSelectedPlayer = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -218,9 +220,8 @@ public class UIGame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jtUserNameUi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lbUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
                     .addComponent(jLLoseUi, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +234,7 @@ public class UIGame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jluserList);
 
         bPlayWithSelectedPlayer.setBackground(new java.awt.Color(195, 202, 198));
         bPlayWithSelectedPlayer.setFont(new java.awt.Font("Sylfaen", 1, 10)); // NOI18N
@@ -249,7 +250,6 @@ public class UIGame extends javax.swing.JFrame {
         btnRefresh.setToolTipText("");
         btnRefresh.setBorderPainted(false);
         btnRefresh.setContentAreaFilled(false);
-        btnRefresh.setOpaque(false);
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
@@ -427,11 +427,11 @@ public class UIGame extends javax.swing.JFrame {
         jpParent.add(jpMainScreen);
         jpParent.repaint();
         jpParent.revalidate();
-        
+
     }//GEN-LAST:event_bBackActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // TODO add your handling code here:
+        jluserList.setListData(Model.getUsers());
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void bPlayWithSelectedPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithSelectedPlayerActionPerformed
@@ -455,7 +455,6 @@ public class UIGame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLWinUiAncestorAdded
 
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
-
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
@@ -476,7 +475,6 @@ public class UIGame extends javax.swing.JFrame {
         xoWithPerson = new XOWithPerson(jpBoard, xScore, oScore);
         jpParent.repaint();
         jpParent.revalidate();
-
     }//GEN-LAST:event_bPlayWithFriendActionPerformed
 
 
@@ -496,11 +494,11 @@ public class UIGame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> jluserList;
     private javax.swing.JPanel jpBoard;
     private javax.swing.JPanel jpGame;
     private javax.swing.JPanel jpMainScreen;

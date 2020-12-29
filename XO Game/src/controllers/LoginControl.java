@@ -25,11 +25,12 @@ public class LoginControl {
 
     public boolean userLoginC(String userName, String passWord, Component c) {
         if (chNamePassowrdIsEmpty(userName, passWord)) {
-            if (Model.userLogin(userName, passWord)) {
+            String[] res = Model.userLogin(userName, passWord);
+            if (Boolean.valueOf(res[0])) {
                 System.out.println("Login Success.");
                 return true;
             } else {
-                JOptionPane.showMessageDialog(c, "UserName / Password Incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(c, res[1], "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(c, "UserName / Password Shouldn't be Empty.", "Error", JOptionPane.ERROR_MESSAGE);
