@@ -94,7 +94,7 @@ public class Model {
             st.setInt(1, client.getId());
             res = st.executeQuery();
             if (res.next()) {
-                draws = res.getInt("loses");
+                draws = res.getInt("draws");
             }
         } catch (SQLException ex) {
             System.out.println("Model getDraws");
@@ -154,5 +154,65 @@ public class Model {
             register = false;
         }
         return register;
+    }
+     public static String getRecored(Client client) {
+        PreparedStatement st;
+        ResultSet res;
+        String record = "";
+        String query = "select * from XOGAME.\"recordandreplay\" WHERE username = ?";
+        try {
+            st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, client.getUserName());
+            res = st.executeQuery();
+            if (res.next()) {
+                record = res.getString("record");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Model getRecord");
+        }
+        return record;
+    }
+
+    public static void setRecored(Client client, String record) {
+        PreparedStatement st;
+        String query = "UPDATE  XOGAME.\"recordandreplay\" SET record=? WHERE username=?";
+        try {
+            st = con.prepareStatement(query);
+            st.setString(1, record);
+            st.setString(2, client.getUserName());
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("there problem with input Record in DataBase");
+        }
+    }
+    public static String getDateTime(Client client) {
+        PreparedStatement st;
+        ResultSet res;
+        String dateTime = "";
+        String query = "select * from XOGAME.\"recordandreplay\" WHERE username = ?";
+        try {
+            st = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, client.getUserName());
+            res = st.executeQuery();
+            if (res.next()) {
+                dateTime = res.getString("dateandtime");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Model getDateAndtime");
+        }
+        return dateTime;
+    }
+
+    public static void setDateTime(Client client, String dateTime) {
+        PreparedStatement st;
+        String query = "UPDATE  XOGAME.\"recordandreplay\" SET record=? WHERE username=?";
+        try {
+            st = con.prepareStatement(query);
+            st.setString(1, dateTime);
+            st.setString(2, client.getUserName());
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("there problem with input DateAndTime in DataBase");
+        }
     }
 }

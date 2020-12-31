@@ -30,6 +30,7 @@ class LobbyHandler extends Thread {
     @Override
     public void run() {
         while (true) {
+
             try {
                 String str = br.readLine();
                 String[] cmd = str.split("#");
@@ -45,6 +46,56 @@ class LobbyHandler extends Thread {
                         }
                     }
                     client.getPs().println();
+                } else if (cmd[0].equalsIgnoreCase("getwins")) {
+                    if (cmd.length >= 1) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                client.getPs().println(Model.getWins(clientsList.elementAt(i)));
+                            }
+                        }
+                    }
+                } else if (cmd[0].equalsIgnoreCase("getdraws")) {
+                    if (cmd.length >= 1) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                client.getPs().println(Model.getDraws(clientsList.elementAt(i)));
+                            }
+                        }
+
+                    }
+                } else if (cmd[0].equalsIgnoreCase("getloses")) {
+                    if (cmd.length >= 1) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                client.getPs().println(Model.getLoses(clientsList.elementAt(i)));
+                            }
+                        }
+
+                    }
+                } else if (cmd[0].equalsIgnoreCase("setwins")) {
+                    if (cmd.length >= 2) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                Model.setWins(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
+                            }
+                        }
+                    }
+                } else if (cmd[0].equalsIgnoreCase("setdraws")) {
+                    if (cmd.length >= 2) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                Model.setDraws(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
+                            }
+                        }
+                    }
+                } else if (cmd[0].equalsIgnoreCase("setloses")) {
+                    if (cmd.length >= 2) {
+                        for (int i = 0; i < clientsList.size(); i++) {
+                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
+                                Model.setLoses(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
+                            }
+                        }
+                    }
                 }
             } catch (IOException ex) {
                 try {

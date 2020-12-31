@@ -17,15 +17,15 @@ import java.net.Socket;
  */
 public class ServerConnection {
 
-    Socket mySocket;
+    Socket socket;
     BufferedReader br;
-    PrintStream ps;
+    public PrintStream ps;
 
     public ServerConnection() {
         try {
-            mySocket = new Socket("127.0.0.1", 5005);
-            br = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
-            ps = new PrintStream(mySocket.getOutputStream());
+            socket = new Socket("localhost", 5005);
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
         } catch (Exception e) {
             System.out.println("No Server");

@@ -21,8 +21,10 @@ public class LobbyServer {
 
     public LobbyServer() throws IOException {
         serverSocket = new ServerSocket(5005);
+
         while (true) {
             Socket s = serverSocket.accept();
+            System.out.println("Starting Server.......");
             new LobbyHandler(s).start();
         }
     }

@@ -22,6 +22,8 @@ public class Model {
     private static int wins;
     private static int loses;
     private static int Draws;
+    private static String recored;
+    private static String DateTime;
 
     private Model() {
     }
@@ -34,61 +36,45 @@ public class Model {
         return userName;
     }
 
-    public static int getWins() {
+    public static int getWins() throws IOException {
+        connection.ps.println("getwins#" + userName);
+        String[] res = connection.br.readLine().trim().split("#");
+        wins = Integer.valueOf(res[0]);
         return wins;
     }
 
-    /*public static void setWins(int wins) {
-        String query = "UPDATE  XOGAME.\"users\" SET wins=? WHERE id=?";
-        try {
-            st = con.prepareStatement(query);
-            st.setInt(1, wins);
-            st.setInt(2, getId());
-            st.executeUpdate();
-            Model.wins = wins;
-        } catch (SQLException ex) {
-            System.out.println("there problem with input Wins in DataBase");
-        }
-    }*/
-    
-    public static int getLoses() {
+    public static void setWins(int wins) throws IOException {
+        connection.ps.println("setwins#" + userName + "#" + wins);
+
+    }
+
+    public static int getLoses() throws IOException {
+        connection.ps.println("getloses#" + userName);
+        String[] res = connection.br.readLine().trim().split("#");
+        loses = Integer.valueOf(res[0]);
         return loses;
     }
 
-    /*public static void setLoses(int loses) {
-        String query = "UPDATE  XOGAME.\"users\" SET loses=? WHERE id=?";
-        try {
-            st = con.prepareStatement(query);
-            st.setInt(1, loses);
-            st.setInt(2, getId());
-            st.executeUpdate();
-            Model.loses = loses;
+    public static void setLoses(int loses) throws IOException {
+        connection.ps.println("setloses#" + userName + "#" + loses);
 
-        } catch (SQLException ex) {
-            System.out.println("there problem with input Loses in DataBase");
-            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-    
-    public static int getDraws() {
+    }
+
+    public static int getDraws() throws IOException {
+        connection.ps.println("getdraws#" + userName);
+        String[] res = connection.br.readLine().trim().split("#");
+        Draws = Integer.valueOf(res[0]);
         return Draws;
     }
 
-    /*public static void setDraws(int Draws) {
-        String query = "UPDATE  XOGAME.\"users\" SET draws=? WHERE id=?";
-        try {
-            st = con.prepareStatement(query);
-            st.setInt(1, Draws);
-            st.setInt(2, getId());
-            st.executeUpdate();
-            Model.Draws = Draws;
-        } catch (SQLException ex) {
-            System.out.println("there problem with input Draws in DataBase");
-        }
-    }*/
-    
+    public static void setDraws(int draws) throws IOException {
+        connection.ps.println("setdraws#" + userName + "#" + draws);
+
+    }
+
     public static String[] userLogin(String userName, String passWord) {
         try {
+
             connection.ps.println("login#" + userName + "#" + passWord);
             String[] res = connection.br.readLine().trim().split("#");
             System.out.println(res[1]);
@@ -112,7 +98,7 @@ public class Model {
             connection.ps.println("clients#");
             String str = connection.br.readLine().trim();
             System.out.println(str);
-           String[] res = str.split("#");
+            String[] res = str.split("#");
             for (String str1 : res) {
                 System.out.println(str1);
             }
@@ -134,4 +120,27 @@ public class Model {
         }
         return false;
     }
+
+    public static String getRecored() throws IOException {
+        connection.ps.println("getrecord#" + userName);
+        String[] res = connection.br.readLine().trim().split("#");
+        Draws = Integer.valueOf(res[0]);
+        return recored;
+    }
+
+    public static void setRecored(String recored) {
+        connection.ps.println("setrecord#" + userName + "#" + recored);
+    }
+
+    public static String getDateTime() throws IOException {
+        connection.ps.println("getddatetime#" + userName);
+        String[] res = connection.br.readLine().trim().split("#");
+        Draws = Integer.valueOf(res[0]);
+        return DateTime;
+    }
+
+    public static void setDateTime(String DateTime) {
+        connection.ps.println("setdatetime#"+ userName + "#" + DateTime);
+    }
+
 }
