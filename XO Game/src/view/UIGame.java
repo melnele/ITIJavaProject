@@ -8,6 +8,9 @@ package view;
 import controllers.UIGameControl;
 import controllers.XOWithPC;
 import controllers.XOWithPerson;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Model;
 
 /**
@@ -22,6 +25,7 @@ public class UIGame extends javax.swing.JFrame {
     UIGameControl control;
     XOWithPerson xoWithPerson;
     XOWithPC xoWithPC;
+            
 
     public UIGame() {
         initComponents();
@@ -435,7 +439,7 @@ public class UIGame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void bPlayWithSelectedPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithSelectedPlayerActionPerformed
-        // TODO add your handling code here:
+ 
     }//GEN-LAST:event_bPlayWithSelectedPlayerActionPerformed
 
     private void jtUserNameUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtUserNameUiAncestorAdded
@@ -443,15 +447,27 @@ public class UIGame extends javax.swing.JFrame {
     }//GEN-LAST:event_jtUserNameUiAncestorAdded
 
     private void jLDrawUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLDrawUiAncestorAdded
-        jLDrawUi.setText(String.valueOf(control.getDraws()));
+        try {
+            jLDrawUi.setText(String.valueOf(control.getDraws()));
+        } catch (IOException ex) {
+            Logger.getLogger(UIGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLDrawUiAncestorAdded
 
     private void jLLoseUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLLoseUiAncestorAdded
-        jLLoseUi.setText(String.valueOf(control.getLoses()));
+        try {
+            jLLoseUi.setText(String.valueOf(control.getLoses()));
+        } catch (IOException ex) {
+            Logger.getLogger(UIGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLLoseUiAncestorAdded
 
     private void jLWinUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLWinUiAncestorAdded
-        jLWinUi.setText(String.valueOf(control.getWins()));
+        try {
+            jLWinUi.setText(String.valueOf(control.getWins()));
+        } catch (IOException ex) {
+            Logger.getLogger(UIGame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLWinUiAncestorAdded
 
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed

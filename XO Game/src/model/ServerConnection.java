@@ -6,6 +6,8 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -17,15 +19,17 @@ import java.net.Socket;
  */
 public class ServerConnection {
 
-    Socket mySocket;
+    Socket socket;
     BufferedReader br;
-    PrintStream ps;
+    public PrintStream ps;
+    private DataInputStream fromServer;
+    private DataOutputStream toServer;
 
     public ServerConnection() {
         try {
-            mySocket = new Socket("127.0.0.1", 5005);
-            br = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
-            ps = new PrintStream(mySocket.getOutputStream());
+            socket = new Socket("localhost",5005);
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            ps = new PrintStream(socket.getOutputStream());
         } catch (IOException ex) {
         } catch (Exception e) {
             System.out.println("No Server");
