@@ -5,9 +5,6 @@
  */
 package controllers;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,8 +15,6 @@ import javax.swing.JPanel;
  * @author AhmedG
  */
 public class XOWithPC extends XOWithPerson {
-
-    UIGameControl uigc = new UIGameControl();
 
     public XOWithPC(JPanel p, JLabel xJLabel, JLabel oJLabel) {
         super(p, xJLabel, oJLabel);
@@ -57,39 +52,15 @@ public class XOWithPC extends XOWithPerson {
             case 'x':
                 picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/lose.gif")));
                 JOptionPane.showMessageDialog(jpBoard, picLabel, "LOST", JOptionPane.PLAIN_MESSAGE);
-                 {
-                    try {
-                        int loses = uigc.getLoses();
-                        System.out.println("Loses 1 : " + loses);
-                        loses++;
-                        uigc.setLoses(loses);
-                        System.out.println("Loses 2 : " + loses);
-
-                    } catch (IOException ex) {
-                        Logger.getLogger(XOWithPC.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
                 setScore('o');
                 break;
             case 'o':
                 picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
                 JOptionPane.showMessageDialog(jpBoard, picLabel, "WON", JOptionPane.PLAIN_MESSAGE);
-                try {
-                    int wins = uigc.getWins();
-                    uigc.setWins(wins + 1);
-                } catch (IOException ex) {
-                    Logger.getLogger(XOWithPC.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 setScore('x');
                 break;
             default:
                 JOptionPane.showMessageDialog(jpBoard, "It's a draw", "Draw", JOptionPane.PLAIN_MESSAGE);
-                try {
-                    int draws = uigc.getDraws();
-                    uigc.setDraws(draws + 1);
-                } catch (IOException ex) {
-                    Logger.getLogger(XOWithPC.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 break;
         }
     }
