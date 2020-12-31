@@ -6,11 +6,8 @@
 package server;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
@@ -23,22 +20,11 @@ class LobbyHandler extends Thread {
     private final Client client;
     private boolean loggedin = false;
     private final BufferedReader br;
-    Socket s;
     private static Vector<Client> clientsList = new Vector<Client>();
-    public static final int PLAYER1 = 1;
-    public static final int PLAYER2 = 2;
-    public static final int PLAYER1_WON = 1;
-    public static final int PLAYER2_WON = 2;
-    public static final int DRAW = 3;
-    public static final int CONTINUE = 4;
-    ServerSocket serverSocket;
-    Socket firstPlayer;
-    Socket secondPlayer;
 
-    public LobbyHandler(Socket cs, ServerSocket serverSockett) throws IOException {
+    public LobbyHandler(Socket cs) throws IOException {
         client = new Client(cs);
         br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-        serverSocket = serverSockett;
     }
 
     @Override
@@ -126,7 +112,7 @@ class LobbyHandler extends Thread {
         }
     }
 
-    private void loginHelper(String[] cmd) throws IOException {
+    private void loginHelper(String[] cmd) {
         if (cmd.length >= 3) {
             boolean flag = true;
             for (int i = 0; i < clientsList.size(); i++) {

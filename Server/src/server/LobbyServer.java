@@ -25,7 +25,7 @@ public class LobbyServer {
         while (true) {
             Socket s = serverSocket.accept();
             System.out.println("Starting Server.......");
-            new LobbyHandler(s,serverSocket).start();
+            new LobbyHandler(s).start();
         }
     }
 
