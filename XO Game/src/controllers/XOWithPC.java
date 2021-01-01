@@ -47,6 +47,7 @@ public class XOWithPC extends XOWithPerson {
     @Override
     protected void message(char winner) {
         //Player 1 and 2 switched
+        UIGameControl.setRecored(move, UIGameControl.getCurrentDate());
         JLabel picLabel;
         switch (winner) {
             case 'x':
@@ -102,26 +103,12 @@ public class XOWithPC extends XOWithPerson {
         if (playerIndex[0] != -1) {
             // Play two in a row to counter fork
             if (boardCopy[1][1] == 'x') {
-
                 return findFork(boardCopy, 'o', 1);
                 // Play into fork position of player
             } else {
                 return playerIndex;
             }
         }
-        // Return index of opposite corners to player
-//        for (int i = 0; i < boardCopy.getLength(); i += 2) {
-//            if (boardCopy.getBoard()[i] == board.getPlayer()
-//                    && i != 4 && boardCopy.positionAvailable(8 - i)) {
-//                return 8 - i;
-//            }
-//        }
-//        // Return index of first available corner
-//        for (int i = 0; i < boardCopy.getLength(); i += 2) {
-//            if (i != 4 && boardCopy.positionAvailable(i)) {
-//                return i;
-//            }
-//        }
 
         // Return index of first open spot
         for (int i = 0; i < 3; i++) {

@@ -15,14 +15,14 @@ import java.util.Vector;
  *
  * @author moham
  */
-class LobbyHandler extends Thread {
+class ClientHandler extends Thread {
 
     private final Client client;
     private boolean loggedin = false;
     private final BufferedReader br;
     private static Vector<Client> clientsList = new Vector<Client>();
 
-    public LobbyHandler(Socket cs) throws IOException {
+    public ClientHandler(Socket cs) throws IOException {
         client = new Client(cs);
         br = new BufferedReader(new InputStreamReader(cs.getInputStream()));
     }
@@ -30,7 +30,6 @@ class LobbyHandler extends Thread {
     @Override
     public void run() {
         while (true) {
-
             try {
                 String str = br.readLine();
                 String[] cmd = str.split("#");
@@ -39,63 +38,30 @@ class LobbyHandler extends Thread {
                 } else if (cmd[0].equalsIgnoreCase("register") && cmd.length >= 5) {
                     client.getPs().println(Model.userRegister(cmd[1], cmd[2], cmd[3], cmd[4]));
                 } else if (loggedin && cmd[0].equalsIgnoreCase("clients")) {
-                    System.out.println("enter");
                     for (int i = 0; i < clientsList.size(); i++) {
                         if (!clientsList.elementAt(i).getUserName().equalsIgnoreCase(client.getUserName())) {
                             client.getPs().print(clientsList.elementAt(i).getUserName() + "#");
                         }
                     }
                     client.getPs().println();
+                } else if (loggedin && cmd[0].equalsIgnoreCase("history")) {
+                    client.getPs().println(Model.getAllDate(client));
                 } else if (cmd[0].equalsIgnoreCase("getwins")) {
-                    if (cmd.length >= 1) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                client.getPs().println(Model.getWins(clientsList.elementAt(i)));
-                            }
-                        }
-                    }
+                    client.getPs().println(Model.getWins(client));
                 } else if (cmd[0].equalsIgnoreCase("getdraws")) {
-                    if (cmd.length >= 1) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                client.getPs().println(Model.getDraws(clientsList.elementAt(i)));
-                            }
-                        }
-
-                    }
+                    client.getPs().println(Model.getDraws(client));
                 } else if (cmd[0].equalsIgnoreCase("getloses")) {
-                    if (cmd.length >= 1) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                client.getPs().println(Model.getLoses(clientsList.elementAt(i)));
-                            }
-                        }
-
-                    }
+                    client.getPs().println(Model.getLoses(client));
                 } else if (cmd[0].equalsIgnoreCase("setwins")) {
-                    if (cmd.length >= 2) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                Model.setWins(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
-                            }
-                        }
-                    }
+                    Model.setWins(client, Integer.valueOf(cmd[2]));
                 } else if (cmd[0].equalsIgnoreCase("setdraws")) {
-                    if (cmd.length >= 2) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                Model.setDraws(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
-                            }
-                        }
-                    }
+                    Model.setDraws(client, Integer.valueOf(cmd[2]));
                 } else if (cmd[0].equalsIgnoreCase("setloses")) {
-                    if (cmd.length >= 2) {
-                        for (int i = 0; i < clientsList.size(); i++) {
-                            if (clientsList.elementAt(i).getUserName().equalsIgnoreCase(cmd[1])) {
-                                Model.setLoses(clientsList.elementAt(i), Integer.valueOf(cmd[2]));
-                            }
-                        }
-                    }
+                    Model.setLoses(client, Integer.valueOf(cmd[2]));
+                } else if (cmd[0].equalsIgnoreCase("getrecord")) {
+                    client.getPs().println(Model.getRecored(client, cmd[2]));
+                } else if (cmd[0].equalsIgnoreCase("setrecord")) {
+                    Model.setRecored(client, cmd[2], cmd[3]);
                 }
             } catch (IOException ex) {
                 try {
