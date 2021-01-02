@@ -5,10 +5,13 @@
  */
 package controllers;
 
+import javafx.util.Duration;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Model;
+import view.Video;
 
 /**
  *
@@ -47,20 +50,26 @@ public class XOWithPC extends XOWithPerson {
     @Override
     protected void message(char winner) {
         //Player 1 and 2 switched
-        JLabel picLabel;
+        UIGameControl.setRecored(move, UIGameControl.getCurrentDate());
+//        JLabel picLabel;
         switch (winner) {
             case 'x':
-                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/lose.gif")));
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "LOST", JOptionPane.PLAIN_MESSAGE);
+//                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/lose.gif")));
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "LOST", JOptionPane.PLAIN_MESSAGE);
+                Model.setLoses(Model.getLoses() + 1);
+                Video.getInstance().start("You", false);
                 setScore('o');
                 break;
             case 'o':
-                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "WON", JOptionPane.PLAIN_MESSAGE);
+//                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "WON", JOptionPane.PLAIN_MESSAGE);
+                Model.setWins(Model.getWins() + 1);
+                Video.getInstance().start("You", true);
                 setScore('x');
                 break;
             default:
                 JOptionPane.showMessageDialog(jpBoard, "It's a draw", "Draw", JOptionPane.PLAIN_MESSAGE);
+                Model.setDraws(Model.getDraws() + 1);
                 break;
         }
     }
@@ -102,26 +111,12 @@ public class XOWithPC extends XOWithPerson {
         if (playerIndex[0] != -1) {
             // Play two in a row to counter fork
             if (boardCopy[1][1] == 'x') {
-
                 return findFork(boardCopy, 'o', 1);
                 // Play into fork position of player
             } else {
                 return playerIndex;
             }
         }
-        // Return index of opposite corners to player
-//        for (int i = 0; i < boardCopy.getLength(); i += 2) {
-//            if (boardCopy.getBoard()[i] == board.getPlayer()
-//                    && i != 4 && boardCopy.positionAvailable(8 - i)) {
-//                return 8 - i;
-//            }
-//        }
-//        // Return index of first available corner
-//        for (int i = 0; i < boardCopy.getLength(); i += 2) {
-//            if (i != 4 && boardCopy.positionAvailable(i)) {
-//                return i;
-//            }
-//        }
 
         // Return index of first open spot
         for (int i = 0; i < 3; i++) {

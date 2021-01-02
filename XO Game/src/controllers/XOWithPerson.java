@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import view.Video;
 
 /**
  *
@@ -26,7 +27,7 @@ public class XOWithPerson {
     protected JPanel jpBoard;
     protected JLabel xScore;
     protected JLabel oScore;
-    
+    String move = "#";
 
     public XOWithPerson(JPanel p, JLabel xJLabel, JLabel oJLabel) {
         xScore = xJLabel;
@@ -42,14 +43,14 @@ public class XOWithPerson {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = new JButton("");
                 board[i][j].setFont(new Font("Arial", Font.PLAIN, 80));
-                board[i][j].setForeground(new Color(249,156,147));
-                board[i][j].setBackground(new Color(89,125,122));
+                board[i][j].setForeground(new Color(249, 156, 147));
+                board[i][j].setBackground(new Color(89, 125, 122));
                 board[i][j].setName(i + " " + j);
                 board[i][j].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String[] s = ((JButton) e.getSource()).getName().split(" ");
-                        newTurn(new Integer(s[0]), new Integer(s[1]));
+                        newTurn(Integer.valueOf(s[0]), Integer.valueOf(s[1]));
                     }
                 });
                 jpBoard.add(board[i][j]);
@@ -81,14 +82,17 @@ public class XOWithPerson {
 
     protected void message(char winner) {
         //Player 1 and 2 switched
-        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/v.mp4")));
+//        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
+        UIGameControl.setRecored(move, UIGameControl.getCurrentDate());
         switch (winner) {
             case 'x':
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "O Win", JOptionPane.PLAIN_MESSAGE);
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "O Win", JOptionPane.PLAIN_MESSAGE);
+                Video.getInstance().start("O", true);
                 setScore('o');
                 break;
             case 'o':
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "X Win", JOptionPane.PLAIN_MESSAGE);
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "X Win", JOptionPane.PLAIN_MESSAGE);
+                Video.getInstance().start("X", true);
                 setScore('x');
                 break;
             default:
@@ -101,19 +105,16 @@ public class XOWithPerson {
         if (c == 'x') {
             String str_score = xScore.getText();
             int score = Integer.parseInt(str_score) + 1;
-
             xScore.setText(Integer.toString(score++));
         } else {
             String str_score = oScore.getText();
             int score = Integer.parseInt(str_score) + 1;
-
             oScore.setText(Integer.toString(score++));
         }
     }
 
     protected boolean isBoardFull() {
         boolean isFull = true;
-
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[i][j].getText().isEmpty()) {
@@ -121,7 +122,6 @@ public class XOWithPerson {
                 }
             }
         }
-
         return isFull;
     }
 
@@ -165,6 +165,7 @@ public class XOWithPerson {
                 if (board[row][col].getText().isEmpty()) {
                     board[row][col].setText("" + curPlayer);
                     board[row][col].setEnabled(false);
+                    move += curPlayer + "%" + row + "%" + col + "@";
                     changePlayer();
                     return true;
                 }

@@ -75,7 +75,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="bPlayWithSelectedPlayer" min="-2" pref="164" max="-2" attributes="0"/>
                                   <Component id="btnRefresh" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Component id="btnHistory" min="-2" pref="166" max="-2" attributes="0"/>
                                   <Component id="bExit" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton1" min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="btnHistory" min="-2" pref="87" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -316,9 +316,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLWinUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLLoseUi">
                   <Properties>
@@ -329,9 +326,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLLoseUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLDrawUi">
                   <Properties>
@@ -342,9 +336,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLDrawUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jtUserNameUi">
                   <Properties>
@@ -355,9 +346,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jtUserNameUiAncestorAdded"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -410,7 +398,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnHistory">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c6" green="ca" red="c3" type="rgb"/>
@@ -423,6 +411,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="History"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
@@ -431,7 +422,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="jList2">
+                <Component class="javax.swing.JList" name="jLHistory">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                       <StringArray count="0"/>

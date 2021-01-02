@@ -17,11 +17,13 @@ import java.net.Socket;
  */
 public class ServerConnection {
 
-    Socket socket;
-    BufferedReader br;
+    public Socket socket;
+    public BufferedReader br;
     public PrintStream ps;
+    public boolean findGame = true;
+    private static ServerConnection serverConnection = null;
 
-    public ServerConnection() {
+    private ServerConnection() {
         try {
             socket = new Socket("localhost", 5005);
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -30,5 +32,12 @@ public class ServerConnection {
         } catch (Exception e) {
             System.out.println("No Server");
         }
+    }
+
+    public static ServerConnection getInstance() {
+        if (serverConnection == null) {
+            serverConnection = new ServerConnection();
+        }
+        return serverConnection;
     }
 }

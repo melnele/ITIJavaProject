@@ -15,25 +15,25 @@ import java.util.logging.Logger;
  *
  * @author moham
  */
-public class LobbyServer {
+public class Server {
 
     ServerSocket serverSocket;
 
-    public LobbyServer() throws IOException {
+    public Server() throws IOException {
         serverSocket = new ServerSocket(5005);
 
         while (true) {
             Socket s = serverSocket.accept();
             System.out.println("Starting Server.......");
-            new LobbyHandler(s).start();
+            new ClientHandler(s).start();
         }
     }
 
     public static void main(String[] args) {
         try {
-            LobbyServer lobbyServer = new LobbyServer();
+            Server lobbyServer = new Server();
         } catch (IOException ex) {
-            Logger.getLogger(LobbyServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -5,7 +5,6 @@
  */
 package controllers;
 
-import java.io.IOException;
 import model.Model;
 
 /**
@@ -14,48 +13,52 @@ import model.Model;
  */
 public class UIGameControl {
 
-    public int getWins() throws IOException {
+    public static int getWins() {
         return Model.getWins();
     }
 
-    public int getLoses() throws IOException {
+    public static String[] getUsers() {
+        return Model.getUsers();
+    }
+
+    public static int getLoses() {
         return Model.getLoses();
     }
 
-    public int getDraws() throws IOException {
+    public static int getDraws() {
         return Model.getDraws();
     }
 
-    public void setWins(int wins) throws IOException {
+    public static void setWins(int wins) {
         Model.setWins(wins);
     }
 
-    public void setLoses(int loses) throws IOException {
+    public static void setLoses(int loses) {
         Model.setLoses(loses);
     }
 
-    public void setDraws(int draws) throws IOException {
+    public static void setDraws(int draws) {
         Model.setDraws(draws);
     }
 
-    public String getUserName() {
+    public static String getUserName() {
         return Model.getUserName();
     }
 
-    public String getDateTime() throws IOException {
-        return Model.getDateTime();
+    public static String getRecord(String date) {
+        return Model.getRecored(date);
     }
 
-    public void setDateTime(String date) throws IOException {
-        Model.setDateTime(date);
+    public static String[] getAllDate() {
+        return Model.getAllDate();
     }
 
-    public String getRecord() throws IOException {
-        return Model.getRecored();
+    public static void setRecored(String record, String date) {
+        Model.setRecored(record, date);
     }
 
-    public void setRecored(String record) throws IOException {
-        Model.setRecored(record);
+    public static String getCurrentDate() {
+        return Model.getCurrentDate();
     }
 
 }
