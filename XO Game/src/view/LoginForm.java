@@ -24,7 +24,6 @@ public class LoginForm extends javax.swing.JFrame {
         this.setTitle("Login A User");
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
     }
 
     /**
@@ -183,9 +182,9 @@ public class LoginForm extends javax.swing.JFrame {
         String passWord = String.valueOf(tfPassword.getPassword());
         if (lc.userLoginC(userName, passWord, this)) {
             dispose();
-            UIGame uIGame = new UIGame();
+            UIGame uIGame = UIGame.getUI();
             uIGame.setTitle("Game XO");
-            uIGame.setSize(700,900);
+            uIGame.setSize(700, 900);
             uIGame.setLocationRelativeTo(null);
             uIGame.setVisible(true);
         }

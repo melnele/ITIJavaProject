@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import view.Video;
 
 /**
  *
@@ -81,15 +82,17 @@ public class XOWithPerson {
 
     protected void message(char winner) {
         //Player 1 and 2 switched
-        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
+//        JLabel picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
         UIGameControl.setRecored(move, UIGameControl.getCurrentDate());
         switch (winner) {
             case 'x':
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "O Win", JOptionPane.PLAIN_MESSAGE);
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "O Win", JOptionPane.PLAIN_MESSAGE);
+                Video.getInstance().start("O", true);
                 setScore('o');
                 break;
             case 'o':
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "X Win", JOptionPane.PLAIN_MESSAGE);
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "X Win", JOptionPane.PLAIN_MESSAGE);
+                Video.getInstance().start("X", true);
                 setScore('x');
                 break;
             default:

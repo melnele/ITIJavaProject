@@ -5,11 +5,15 @@
  */
 package model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import view.UIGame;
 
 /**
  *
@@ -17,14 +21,10 @@ import java.util.logging.Logger;
  */
 public class Model {
 
-    private static final ServerConnection connection = new ServerConnection();
+    public static final ServerConnection connection = ServerConnection.getInstance();
 
     private static int id;
     private static String userName;
-    private static int wins;
-    private static int loses;
-    private static int Draws;
-    private static String recored;
 
     private Model() {
     }
@@ -40,13 +40,18 @@ public class Model {
     public static int getWins() {
         try {
             connection.ps.println("getwins#" + userName);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
             String[] res = connection.br.readLine().trim().split("#");
-            wins = Integer.valueOf(res[0]);
+            int wins = Integer.valueOf(res[0]);
             return wins;
         } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("No Server");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -58,13 +63,18 @@ public class Model {
     public static int getLoses() {
         try {
             connection.ps.println("getloses#" + userName);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
             String[] res = connection.br.readLine().trim().split("#");
-            loses = Integer.valueOf(res[0]);
+            int loses = Integer.valueOf(res[0]);
             return loses;
         } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("No Server");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -76,13 +86,18 @@ public class Model {
     public static int getDraws() {
         try {
             connection.ps.println("getdraws#" + userName);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
             String[] res = connection.br.readLine().trim().split("#");
-            Draws = Integer.valueOf(res[0]);
+            int Draws = Integer.valueOf(res[0]);
             return Draws;
         } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("No Server");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -99,7 +114,6 @@ public class Model {
             if (Boolean.valueOf(res[0])) {
                 id = new Integer(res[1]);
                 Model.userName = userName;
-                System.out.println(getId() + " " + getUserName() + " " + getWins());
             }
             return res;
         } catch (IOException ex) {
@@ -114,14 +128,16 @@ public class Model {
     public static String[] getUsers() {
         try {
             connection.ps.println("clients#");
-            String str = connection.br.readLine().trim();
-            System.out.println(str);
-            String[] res = str.split("#");
-            for (String str1 : res) {
-                System.out.println(str1);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
             }
+            String str = connection.br.readLine().trim();
+            String[] res = str.split("#");
             return res;
+
         } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -130,6 +146,9 @@ public class Model {
     public static String[] getAllDate() {
         try {
             connection.ps.println("history#" + userName);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
             String str = connection.br.readLine().trim();
             System.out.println("All Record : " + str);
             String[] res = str.split("#");
@@ -138,6 +157,8 @@ public class Model {
             }
             return res;
         } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -158,14 +179,19 @@ public class Model {
     public static String getRecored(String date) {
         try {
             connection.ps.println("getrecord#" + userName + "#" + date);
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
             String[] res = connection.br.readLine().trim().split("#");
-            recored = res[0];
+            String recored = res[0];
             System.out.println("Model UI getRecord" + recored);
             return recored;
         } catch (IOException ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("No Server");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
@@ -180,5 +206,113 @@ public class Model {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
         String strDate = formatter.format(instance);
         return strDate;
+    }
+
+    public static String checkMove() {
+        String str = null;
+        try {
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
+            str = connection.br.readLine().trim();
+            System.out.println("checkMove " + str);
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return str;
+    }
+
+    public static int[] getMove() {
+        try {
+            if (!connection.br.ready()) {
+                Thread.sleep(100);
+            }
+            int x = Integer.valueOf(connection.br.readLine());
+            System.out.println(x);
+            int y = Integer.valueOf(connection.br.readLine());
+            System.out.println(x + " " + y);
+            return new int[]{x, y};
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
+        } catch (IOException | NumberFormatException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static void move(char player, int x, int y) {
+        try {
+            connection.ps.println(x);
+            connection.ps.println(y);
+//            String res = connection.br.readLine().trim();
+//            System.out.println(res);
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
+        }
+    }
+
+    public static void playWith(String userName) {
+        try {
+            connection.ps.println("play#" + userName);
+//            String res = connection.br.readLine().trim();
+//            System.out.println(res);
+        } catch (NullPointerException e) {
+            System.out.println("No Server");
+        }
+    }
+
+    public static boolean checkInvite() {
+        try {
+            int BUFFER_SIZE = 10000;
+
+            if (!connection.br.ready()) {
+                return false;
+            }
+            connection.br.mark(BUFFER_SIZE);
+            String str = connection.br.readLine();
+            if (Thread.interrupted()) {
+                connection.br.reset();
+                System.out.println("int " + str);
+                return true;
+            }
+            System.out.println("checkInvite " + str);
+            String[] res = str.trim().split("#");
+            if (res[0].equalsIgnoreCase("ready") && res.length >= 2) {
+                Object[] options = {"Accept", "Refuse"};
+                int n = JOptionPane.showOptionDialog(UIGame.getUI(),
+                        res[1] + " Sent you a game invite?",
+                        "Game invite",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, //do not use a custom Icon
+                        options, //the titles of buttons
+                        options[0]); //default button title
+                if (n == 0) {
+                    connection.ps.println("yes#" + res[1]);
+                    UIGame.getUI().acc();
+                    return true;
+                } /*else {
+                    connection.ps.println("no#" + res[1]);
+                    return false;
+                }*/
+            } else if (res[0].equalsIgnoreCase("yes")) {
+                return true;
+            } /*else if (res[0].equalsIgnoreCase("no")) {
+                UIGame.getUI().ref();
+                return true;
+            }*/ else {
+                connection.br.reset();
+                return true;
+            }
+        } catch (IOException ex) {
+            return true;
+        }
+        return false;
     }
 }

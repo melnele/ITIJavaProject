@@ -5,10 +5,13 @@
  */
 package controllers;
 
+import javafx.util.Duration;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Model;
+import view.Video;
 
 /**
  *
@@ -48,20 +51,25 @@ public class XOWithPC extends XOWithPerson {
     protected void message(char winner) {
         //Player 1 and 2 switched
         UIGameControl.setRecored(move, UIGameControl.getCurrentDate());
-        JLabel picLabel;
+//        JLabel picLabel;
         switch (winner) {
             case 'x':
-                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/lose.gif")));
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "LOST", JOptionPane.PLAIN_MESSAGE);
+//                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/lose.gif")));
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "LOST", JOptionPane.PLAIN_MESSAGE);
+                Model.setLoses(Model.getLoses() + 1);
+                Video.getInstance().start("You", false);
                 setScore('o');
                 break;
             case 'o':
-                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
-                JOptionPane.showMessageDialog(jpBoard, picLabel, "WON", JOptionPane.PLAIN_MESSAGE);
+//                picLabel = new JLabel(new ImageIcon(getClass().getResource("/icons/win.gif")));
+//                JOptionPane.showMessageDialog(jpBoard, picLabel, "WON", JOptionPane.PLAIN_MESSAGE);
+                Model.setWins(Model.getWins() + 1);
+                Video.getInstance().start("You", true);
                 setScore('x');
                 break;
             default:
                 JOptionPane.showMessageDialog(jpBoard, "It's a draw", "Draw", JOptionPane.PLAIN_MESSAGE);
+                Model.setDraws(Model.getDraws() + 1);
                 break;
         }
     }

@@ -316,9 +316,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLWinUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLLoseUi">
                   <Properties>
@@ -329,9 +326,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLLoseUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLDrawUi">
                   <Properties>
@@ -342,9 +336,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jLDrawUiAncestorAdded"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jtUserNameUi">
                   <Properties>
@@ -355,9 +346,6 @@
                       <Color blue="33" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jtUserNameUiAncestorAdded"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

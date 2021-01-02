@@ -7,9 +7,12 @@ package view;
 
 import controllers.History;
 import controllers.UIGameControl;
+import controllers.XOWithNetwork;
 import controllers.XOWithPC;
 import controllers.XOWithPerson;
+import model.InviteThread;
 import model.Model;
+import model.ServerConnection;
 
 /**
  *
@@ -23,11 +26,46 @@ public class UIGame extends javax.swing.JFrame {
     XOWithPerson xoWithPerson;
     XOWithPC xoWithPC;
     History history;
+    XOWithNetwork xoWithNetwork;
+    InviteThread inviteThread;
+    private static UIGame uiGame = null;
 
-    public UIGame() {
+    private UIGame() {
         initComponents();
         jluserList.setListData(UIGameControl.getUsers());
         jLHistory.setListData(UIGameControl.getAllDate());
+        jtUserNameUi.setText(UIGameControl.getUserName());
+        jLWinUi.setText(String.valueOf(UIGameControl.getWins()));
+        jLDrawUi.setText(String.valueOf(UIGameControl.getDraws()));
+        jLLoseUi.setText(String.valueOf(UIGameControl.getLoses()));
+        inviteThread = new InviteThread();
+        inviteThread.start();
+    }
+
+    public static UIGame getUI() {
+        if (uiGame == null) {
+            uiGame = new UIGame();
+        }
+        return uiGame;
+    }
+
+    public void acc() {
+        inviteThread.interrupt();
+        bBack.setEnabled(false);
+        jpParent.removeAll();
+        jpParent.add(jpGame);
+        xoWithNetwork = new XOWithNetwork('x', jpBoard, xScore, oScore);
+        jpParent.repaint();
+        jpParent.revalidate();
+    }
+
+    public void ref() {
+        jpParent.removeAll();
+        jpParent.add(jpMainScreen);
+        jpParent.repaint();
+        jpParent.revalidate();
+        inviteThread = new InviteThread();
+        inviteThread.start();
     }
 
     /**
@@ -141,51 +179,15 @@ public class UIGame extends javax.swing.JFrame {
 
         jLWinUi.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLWinUi.setForeground(new java.awt.Color(0, 0, 51));
-        jLWinUi.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jLWinUiAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         jLLoseUi.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLLoseUi.setForeground(new java.awt.Color(0, 0, 51));
-        jLLoseUi.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jLLoseUiAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         jLDrawUi.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLDrawUi.setForeground(new java.awt.Color(0, 0, 51));
-        jLDrawUi.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jLDrawUiAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         jtUserNameUi.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jtUserNameUi.setForeground(new java.awt.Color(0, 0, 51));
-        jtUserNameUi.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jtUserNameUiAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -426,45 +428,51 @@ public class UIGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBackActionPerformed
+//        ServerConnection.getInstance().ps.println("done");
+        inviteThread.interrupt();
         jpParent.removeAll();
         jpBoard.removeAll();
         xScore.setText("" + 0);
         oScore.setText("" + 0);
         jpParent.add(jpMainScreen);
+        jluserList.setListData(UIGameControl.getUsers());
+        jLHistory.setListData(UIGameControl.getAllDate());
+        jtUserNameUi.setText(UIGameControl.getUserName());
+        jLWinUi.setText(String.valueOf(UIGameControl.getWins()));
+        jLDrawUi.setText(String.valueOf(UIGameControl.getDraws()));
+        jLLoseUi.setText(String.valueOf(UIGameControl.getLoses()));
         jpParent.repaint();
         jpParent.revalidate();
+        inviteThread = new InviteThread();
+        inviteThread.start();
     }//GEN-LAST:event_bBackActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        inviteThread.interrupt();
         jluserList.setListData(Model.getUsers());
         jLHistory.setListData(UIGameControl.getAllDate());
+        inviteThread = new InviteThread();
+        inviteThread.start();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void bPlayWithSelectedPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithSelectedPlayerActionPerformed
-
+        if (jluserList.getSelectedValue() != null) {
+            bBack.setEnabled(false);
+            Model.playWith(jluserList.getSelectedValue());
+            jpParent.removeAll();
+            jpParent.add(jpGame);
+            xoWithNetwork = new XOWithNetwork('o', jpBoard, xScore, oScore);
+            jpParent.repaint();
+            jpParent.revalidate();
+        }
     }//GEN-LAST:event_bPlayWithSelectedPlayerActionPerformed
-
-    private void jtUserNameUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jtUserNameUiAncestorAdded
-        jtUserNameUi.setText(UIGameControl.getUserName());
-    }//GEN-LAST:event_jtUserNameUiAncestorAdded
-
-    private void jLDrawUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLDrawUiAncestorAdded
-        jLDrawUi.setText(String.valueOf(UIGameControl.getDraws()));
-    }//GEN-LAST:event_jLDrawUiAncestorAdded
-
-    private void jLLoseUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLLoseUiAncestorAdded
-        jLLoseUi.setText(String.valueOf(UIGameControl.getLoses()));
-    }//GEN-LAST:event_jLLoseUiAncestorAdded
-
-    private void jLWinUiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLWinUiAncestorAdded
-        jLWinUi.setText(String.valueOf(UIGameControl.getWins()));
-    }//GEN-LAST:event_jLWinUiAncestorAdded
 
     private void bExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_bExitActionPerformed
 
     private void bPlayWithPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithPcActionPerformed
+        inviteThread.interrupt();
         jpParent.removeAll();
         jpParent.add(jpGame);
         xoWithPC = new XOWithPC(jpBoard, xScore, oScore);
@@ -473,6 +481,7 @@ public class UIGame extends javax.swing.JFrame {
     }//GEN-LAST:event_bPlayWithPcActionPerformed
 
     private void bPlayWithFriendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPlayWithFriendActionPerformed
+        inviteThread.interrupt();
         jpParent.removeAll();
         jpParent.add(jpGame);
         xoWithPerson = new XOWithPerson(jpBoard, xScore, oScore);
@@ -481,11 +490,14 @@ public class UIGame extends javax.swing.JFrame {
     }//GEN-LAST:event_bPlayWithFriendActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        jpParent.removeAll();
-        jpParent.add(jpGame);
-        history = new History(jpBoard, xScore, oScore, jLHistory.getSelectedValue());
-        jpParent.repaint();
-        jpParent.revalidate();
+        if (jLHistory.getSelectedValue() != null) {
+            inviteThread.interrupt();
+            jpParent.removeAll();
+            jpParent.add(jpGame);
+            history = new History(jpBoard, xScore, oScore, jLHistory.getSelectedValue());
+            jpParent.repaint();
+            jpParent.revalidate();
+        }
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

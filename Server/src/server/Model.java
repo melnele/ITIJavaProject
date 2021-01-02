@@ -192,7 +192,6 @@ public class Model {
         } catch (SQLException ex) {
             System.out.println("Model getRecord");
         }
-
         return dates;
     }
 
@@ -204,7 +203,6 @@ public class Model {
             st.setString(1, client.getUserName());
             st.setString(2, record);
             st.setString(3, dateTime);
-
             st.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("there problem with input Record in DataBase");
