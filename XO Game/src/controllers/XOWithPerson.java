@@ -75,6 +75,7 @@ public class XOWithPerson {
         jpBoard.removeAll();
         board = new JButton[3][3];
         curPlayer = 'x';
+        move = "#";
         initializeBoard();
         jpBoard.revalidate();
         jpBoard.repaint();
